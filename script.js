@@ -13,7 +13,7 @@ let diceimg = document.querySelector('.dice');
 
 // generate a random number btw 1~6
 let rand = function () {
-  return Math.trunc(Math.random() * 6 + 1);
+  return Math.trunc(Math.random() * 20 + 1);
 };
 
 // Creating a sweatch player function
@@ -86,22 +86,45 @@ btnRoll.addEventListener('click', function (num) {
 // Active the holdscore button
 btnHold.addEventListener('click', function () {
   if (players[0].classList.contains('player--active')) {
-    let i = 0;
-    score[i].textContent =
-      Number(score[i].textContent) + Number(crtScore[i].textContent);
-    crtScore[i].textContent = 0;
+    score[0].textContent =
+      Number(score[0].textContent) + Number(crtScore[0].textContent);
+    crtScore[0].textContent = 0;
+    switchPlayer();
+    if (score[0].textContent >= 100) {
+      score[0].textContent = `Wins! ${score[0].textContent}`;
+      score[1].textContent = `Lose! ${score[1].textContent}`;
+      players[0].classList.add('player--active');
+      players[1].classList.remove('player--active');
+      btnHold.disabled = true;
+      btnHold.style.backgroundColor = '#888';
+      btnRoll.disabled = true;
+      btnRoll.style.backgroundColor = '#888';
+    }
   } else {
-    let i = 1;
-    score[i].textContent =
-      Number(score[i].textContent) + Number(crtScore[i].textContent);
-    crtScore[i].textContent = 0;
+    score[1].textContent =
+      Number(score[1].textContent) + Number(crtScore[1].textContent);
+    crtScore[1].textContent = 0;
+    switchPlayer();
+    if (score[1].textContent >= 100) {
+      score[0].textContent = `Lose! ${score[0].textContent}`;
+      score[1].textContent = `Wins! ${score[1].textContent}`;
+      players[0].classList.remove('player--active');
+      players[1].classList.add('player--active');
+      btnHold.disabled = true;
+      btnHold.style.backgroundColor = '#888';
+      btnRoll.disabled = true;
+      btnRoll.style.backgroundColor = '#888';
+    }
   }
-  switchPlayer();
 });
 // Active the newgame button
 btnNew.addEventListener('click', function () {
   zeroScores();
   diceRoll(1);
+  btnHold.disabled = false;
+  btnHold.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
+  btnRoll.disabled = false;
+  btnRoll.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
   players[0].classList.add('player--active');
   players[1].classList.remove('player--active');
 });
