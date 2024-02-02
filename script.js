@@ -13,7 +13,7 @@ let diceimg = document.querySelector('.dice');
 
 // generate a random number btw 1~6
 let rand = function () {
-  return Math.trunc(Math.random() * 20 + 1);
+  return Math.trunc(Math.random() * 6 + 1);
 };
 
 // Creating a sweatch player function
@@ -34,37 +34,43 @@ function zeroScores() {
   }
 }
 
-// Dice Rolling function
-const diceRoll = function (num) {
-  switch (num) {
-    case 1:
-      diceimg.setAttribute('src', 'dice-1.png');
-      break;
-    case 2:
-      diceimg.setAttribute('src', 'dice-2.png');
-      break;
-    case 3:
-      diceimg.setAttribute('src', 'dice-3.png');
-      break;
-    case 4:
-      diceimg.setAttribute('src', 'dice-4.png');
-      break;
-    case 5:
-      diceimg.setAttribute('src', 'dice-5.png');
-      break;
-    case 6:
-      diceimg.setAttribute('src', 'dice-6.png');
-      break;
-  }
-};
+// ---Dice Rolling function--- //
+// diceimg.src = `dice-${1}.png`;
+//      OR USING SWITCH STATMENT
+// const diceRoll = function (num) {
+//   switch (num) {
+//     case 1:
+//       diceimg.setAttribute('src', 'dice-1.png');
+//       break;
+//     case 2:
+//       diceimg.setAttribute('src', 'dice-2.png');
+//       break;
+//     case 3:
+//       diceimg.setAttribute('src', 'dice-3.png');
+//       break;
+//     case 4:
+//       diceimg.setAttribute('src', 'dice-4.png');
+//       break;
+//     case 5:
+//       diceimg.setAttribute('src', 'dice-5.png');
+//       break;
+//     case 6:
+//       diceimg.setAttribute('src', 'dice-6.png');
+//       break;
+//   }
+// };
 
 //------Activating the buttons-------//
-// Zero Scores
+// Zero Scores & hidden Dice
 zeroScores();
+diceimg.classList.add('hidden');
 // Active the roll button
 btnRoll.addEventListener('click', function (num) {
+  diceimg.classList.remove('hidden');
   num = rand();
-  diceRoll(num);
+  diceimg.src = `dice-${num}.png`;
+  // diceRoll(num);
+
   if (players[0].classList.contains('player--active')) {
     let i = 0;
     if (num === 1) {
@@ -93,8 +99,8 @@ btnHold.addEventListener('click', function () {
     if (score[0].textContent >= 100) {
       score[0].textContent = `Wins! ${score[0].textContent}`;
       score[1].textContent = `Lose! ${score[1].textContent}`;
-      players[0].classList.add('player--active');
-      players[1].classList.remove('player--active');
+      players[0].classList.toggle('player--active');
+      players[1].classList.toggle('player--active');
       btnHold.disabled = true;
       btnHold.style.backgroundColor = '#888';
       btnRoll.disabled = true;
@@ -108,8 +114,8 @@ btnHold.addEventListener('click', function () {
     if (score[1].textContent >= 100) {
       score[0].textContent = `Lose! ${score[0].textContent}`;
       score[1].textContent = `Wins! ${score[1].textContent}`;
-      players[0].classList.remove('player--active');
-      players[1].classList.add('player--active');
+      players[0].classList.toggle('player--active');
+      players[1].classList.toggle('player--active');
       btnHold.disabled = true;
       btnHold.style.backgroundColor = '#888';
       btnRoll.disabled = true;
@@ -120,11 +126,11 @@ btnHold.addEventListener('click', function () {
 // Active the newgame button
 btnNew.addEventListener('click', function () {
   zeroScores();
-  diceRoll(1);
+  diceimg.classList.add('hidden');
   btnHold.disabled = false;
   btnHold.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
   btnRoll.disabled = false;
   btnRoll.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
-  players[0].classList.add('player--active');
-  players[1].classList.remove('player--active');
+  players[0].classList.toggle('player--active');
+  players[1].classList.toggle('player--active');
 });
