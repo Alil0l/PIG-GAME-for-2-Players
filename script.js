@@ -97,14 +97,15 @@ btnHold.addEventListener('click', function () {
     crtScore[0].textContent = 0;
     switchPlayer();
     if (score[0].textContent >= 100) {
-      score[0].textContent = `Wins! ${score[0].textContent}`;
-      score[1].textContent = `Lose! ${score[1].textContent}`;
+      score[0].textContent = `😎${score[0].textContent}`;
+      score[1].textContent = `😭${score[1].textContent}`;
       players[0].classList.toggle('player--active');
       players[1].classList.toggle('player--active');
       btnHold.disabled = true;
       btnHold.style.backgroundColor = '#888';
       btnRoll.disabled = true;
       btnRoll.style.backgroundColor = '#888';
+      diceimg.classList.add('hidden');
     }
   } else {
     score[1].textContent =
@@ -112,14 +113,15 @@ btnHold.addEventListener('click', function () {
     crtScore[1].textContent = 0;
     switchPlayer();
     if (score[1].textContent >= 100) {
-      score[0].textContent = `Lose! ${score[0].textContent}`;
-      score[1].textContent = `Wins! ${score[1].textContent}`;
+      score[0].textContent = `😭${score[0].textContent}`;
+      score[1].textContent = `😎${score[1].textContent}`;
       players[0].classList.toggle('player--active');
       players[1].classList.toggle('player--active');
       btnHold.disabled = true;
       btnHold.style.backgroundColor = '#888';
       btnRoll.disabled = true;
       btnRoll.style.backgroundColor = '#888';
+      diceimg.classList.add('hidden');
     }
   }
 });
@@ -131,6 +133,6 @@ btnNew.addEventListener('click', function () {
   btnHold.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
   btnRoll.disabled = false;
   btnRoll.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
-  players[0].classList.toggle('player--active');
-  players[1].classList.toggle('player--active');
+  players[0].classList.add('player--active');
+  players[1].classList.remove('player--active');
 });
